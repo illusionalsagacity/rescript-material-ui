@@ -1,3 +1,5 @@
-(lang dune 1.0)
+(lang dune 2.6)
+
+(generate_opam_files true)
 
 (name "rescript_material_ui_ppx")
