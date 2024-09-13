@@ -41,9 +41,9 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(
-                               Longident.parse("Mui.ThemeOptions.t"),
-                             ),
+                             Longident.unflatten(["Mui", "Theme", "t"])
+                             |> Option.get
+                             |> Location.mknoloc,
                              [],
                            ),
                          ),
@@ -54,7 +54,7 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(Longident.Lident("string")),
+                             Longident.Lident("string") |> Location.mknoloc,
                              [],
                            ),
                          ),
@@ -65,12 +65,12 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(
-                               Longident.parse("Js.nullable"),
-                             ),
+                             Longident.unflatten(["Js", "nullable"])
+                             |> Option.get
+                             |> Location.mknoloc,
                              [
                                Typ.constr(
-                                 Location.mknoloc(Longident.Lident("bool")),
+                                 Longident.Lident("bool") |> Location.mknoloc,
                                  [],
                                ),
                              ],
@@ -85,11 +85,11 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            Typ.arrow(
                              Nolabel,
                              Typ.constr(
-                               Location.mknoloc(Longident.Lident("unit")),
+                               Longident.Lident("unit") |> Location.mknoloc,
                                [],
                              ),
                              Typ.constr(
-                               Location.mknoloc(Longident.Lident("string")),
+                               Longident.Lident("string") |> Location.mknoloc,
                                [],
                              ),
                            ),
@@ -101,7 +101,7 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(Longident.Lident("string")),
+                             Longident.Lident("string") |> Location.mknoloc,
                              [],
                            ),
                          ),
@@ -112,7 +112,7 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(Longident.Lident("string")),
+                             Longident.Lident("string") |> Location.mknoloc,
                              [],
                            ),
                          ),
@@ -123,7 +123,7 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(Longident.Lident("string")),
+                             Longident.Lident("string") |> Location.mknoloc,
                              [],
                            ),
                          ),
@@ -134,7 +134,7 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(Longident.Lident("int")),
+                             Longident.Lident("int") |> Location.mknoloc,
                              [],
                            ),
                          ),
@@ -145,7 +145,7 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
                            ~loc,
                            Location.mkloc(name, loc),
                            Typ.constr(
-                             Location.mknoloc(Longident.Lident("bool")),
+                             Longident.Lident("bool") |> Location.mknoloc,
                              [],
                            ),
                          ),
@@ -166,7 +166,12 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
         Vb.mk(
           Pat.constraint_(
             Pat.var(Location.mknoloc("options")),
-            Typ.constr(Location.mknoloc(Longident.parse("options")), []),
+            Typ.constr(
+              Longident.unflatten(["options"])
+              |> Option.get
+              |> Location.mknoloc,
+              [],
+            ),
           ),
           Exp.record(fields, None),
         ),
@@ -176,11 +181,7 @@ let createOptionsWithTypeConstraint = (fields: rawFields) => {
 };
 
 let createRecordTypeExpression =
-    (
-      ~keys: list((string, Migrate_parsetree__Ast_410.Location.t)),
-      ~mapTo: string,
-      name: string,
-    ) => {
+    (~keys: list((string, Location.t)), ~mapTo: list(string), name: string) => {
   Type.mk(
     ~kind=
       Ptype_record(
@@ -189,7 +190,10 @@ let createRecordTypeExpression =
              Type.field(
                ~loc,
                Location.mkloc(name, loc),
-               Typ.constr(Location.mknoloc(Longident.parse(mapTo)), []),
+               Typ.constr(
+                 Longident.unflatten(mapTo) |> Option.get |> Location.mknoloc,
+                 [],
+               ),
              )
            }),
       ),
@@ -200,12 +204,22 @@ let createRecordTypeExpression =
 let getTypeExpressions = (fields: rawFields) => {
   let keys = fields |> parseFields;
   (
-    createRecordTypeExpression(~keys, ~mapTo="string", "classes"),
-    createRecordTypeExpression(~keys, ~mapTo="ReactDOM.Style.t", "styles"),
+    createRecordTypeExpression(~keys, ~mapTo=["string"], "classes"),
+    createRecordTypeExpression(
+      ~keys,
+      ~mapTo=["ReactDOM", "Style", "t"],
+      "styles",
+    ),
     Typ.arrow(
       Nolabel,
-      Typ.constr(Location.mknoloc(Longident.parse("unit")), []),
-      Typ.constr(Location.mknoloc(Longident.parse("classes")), []),
+      Typ.constr(
+        Longident.unflatten(["unit"]) |> Option.get |> Location.mknoloc,
+        [],
+      ),
+      Typ.constr(
+        Longident.unflatten(["classes"]) |> Option.get |> Location.mknoloc,
+        [],
+      ),
     ),
   );
 };
@@ -263,24 +277,32 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
                 Typ.arrow(
                   Nolabel,
                   Typ.constr(
-                    Location.mknoloc(Longident.parse("Styles.styles")),
+                    Longident.unflatten(["Styles", "styles"])
+                    |> Option.get
+                    |> Location.mknoloc,
                     [],
                   ),
                   switch (options) {
                   | None =>
                     Typ.constr(
-                      Location.mknoloc(Longident.parse("useStyles")),
+                      Longident.unflatten(["useStyles"])
+                      |> Option.get
+                      |> Location.mknoloc,
                       [],
                     )
                   | Some(_) =>
                     Typ.arrow(
                       Nolabel,
                       Typ.constr(
-                        Location.mknoloc(Longident.parse("options")),
+                        Longident.unflatten(["options"])
+                        |> Option.get
+                        |> Location.mknoloc,
                         [],
                       ),
                       Typ.constr(
-                        Location.mknoloc(Longident.parse("useStyles")),
+                        Longident.unflatten(["useStyles"])
+                        |> Option.get
+                        |> Location.mknoloc,
                         [],
                       ),
                     )
@@ -295,7 +317,9 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
                   Ast_helper.Pat.var(Location.mknoloc("useStyles")),
                   Exp.apply(
                     Exp.ident(
-                      Location.mknoloc(Longident.parse("makeStyles")),
+                      Longident.unflatten(["makeStyles"])
+                      |> Option.get
+                      |> Location.mknoloc,
                     ),
                     [
                       (
@@ -303,9 +327,9 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
                         Exp.constraint_(
                           Exp.record(fields, None),
                           Typ.constr(
-                            Location.mknoloc(
-                              Longident.parse("Styles.styles"),
-                            ),
+                            Longident.unflatten(["Styles", "styles"])
+                            |> Option.get
+                            |> Location.mknoloc,
                             [],
                           ),
                         ),
@@ -315,11 +339,10 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
                          | Some(_) => [
                              (
                                Nolabel,
-                               Exp.ident(
-                                 Location.mknoloc(
-                                   Longident.parse("options"),
-                                 ),
-                               ),
+                               Longident.unflatten(["options"])
+                               |> Option.get
+                               |> Location.mknoloc
+                               |> Exp.ident,
                              ),
                            ]
                          },
@@ -357,9 +380,16 @@ let rewriteMakeStylesWithTheme =
       ~manifest=
         Typ.arrow(
           Nolabel,
-          Typ.constr(Location.mknoloc(Longident.parse("Mui.Theme.t")), []),
           Typ.constr(
-            Location.mknoloc(Longident.parse("Styles.styles")),
+            Longident.unflatten(["Mui", "Theme", "t"])
+            |> Option.get
+            |> Location.mknoloc,
+            [],
+          ),
+          Typ.constr(
+            Longident.unflatten(["Styles", "styles"])
+            |> Option.get
+            |> Location.mknoloc,
             [],
           ),
         ),
@@ -416,24 +446,32 @@ let rewriteMakeStylesWithTheme =
                 Typ.arrow(
                   Nolabel,
                   Typ.constr(
-                    Location.mknoloc(Longident.parse("themeFunc")),
+                    Longident.unflatten(["themeFunc"])
+                    |> Option.get
+                    |> Location.mknoloc,
                     [],
                   ),
                   switch (options) {
                   | None =>
                     Typ.constr(
-                      Location.mknoloc(Longident.parse("useStyles")),
+                      Longident.unflatten(["useStyles"])
+                      |> Option.get
+                      |> Location.mknoloc,
                       [],
                     )
                   | Some(_) =>
                     Typ.arrow(
                       Nolabel,
                       Typ.constr(
-                        Location.mknoloc(Longident.parse("options")),
+                        Longident.unflatten(["options"])
+                        |> Option.get
+                        |> Location.mknoloc,
                         [],
                       ),
                       Typ.constr(
-                        Location.mknoloc(Longident.parse("useStyles")),
+                        Longident.unflatten(["useStyles"])
+                        |> Option.get
+                        |> Location.mknoloc,
                         [],
                       ),
                     )
@@ -448,7 +486,9 @@ let rewriteMakeStylesWithTheme =
                   Ast_helper.Pat.var(Location.mknoloc("useStyles")),
                   Exp.apply(
                     Exp.ident(
-                      Location.mknoloc(Longident.parse("makeStyles")),
+                      Longident.unflatten(["makeStyles"])
+                      |> Option.get
+                      |> Location.mknoloc,
                     ),
                     [
                       (Nolabel, funcExpr),
@@ -457,11 +497,10 @@ let rewriteMakeStylesWithTheme =
                          | Some(_) => [
                              (
                                Nolabel,
-                               Exp.ident(
-                                 Location.mknoloc(
-                                   Longident.parse("options"),
-                                 ),
-                               ),
+                               Longident.unflatten(["options"])
+                               |> Option.get
+                               |> Location.mknoloc
+                               |> Exp.ident,
                              ),
                            ]
                          },
