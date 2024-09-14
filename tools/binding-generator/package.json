@@ -17,7 +17,7 @@
     "lodash": "~4.17.11",
     "react-dom": "^17.0.2",
     "reason": "^3.3.4",
-    "rescript": "^10.1.2"
+    "rescript": "~11.1.0"
   },
   "devDependencies": {
     "@rescript/react": "~0.11.0",

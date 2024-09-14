@@ -2756,7 +2756,7 @@ __metadata:
     react: "npm:^17.0.2"
     react-dom: "npm:^17.0.2"
     reason: "npm:^3.3.4"
-    rescript: "npm:^10.1.2"
+    rescript: "npm:~11.1.0"
     ts-node: "npm:~8.2.0"
     typescript: "npm:4.9.5"
     yargs: "npm:15.3.1"
@@ -14745,7 +14745,7 @@ __metadata:
     parcel: "npm:^2.0.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    rescript: "npm:~10.1.2"
+    rescript: "npm:~11.1.0"
   languageName: unknown
   linkType: soft
 
@@ -14756,7 +14756,7 @@ __metadata:
     "@material-ui/core": "npm:4.12.3"
     "@material-ui/lab": "npm:^4.0.0-alpha.60"
     "@rescript/react": "npm:~0.11.0"
-    rescript: "npm:^10.1.2"
+    rescript: "npm:~11.1.0"
   peerDependencies:
     "@material-ui/core": 4.12.3
     "@material-ui/lab": ^4.0.0-alpha.60
@@ -14775,7 +14775,7 @@ __metadata:
     parcel: "npm:^2.0.1"
     react: "npm:^17.0.2"
     react-dom: "npm:^17.0.2"
-    rescript: "npm:~10.1.2"
+    rescript: "npm:~11.1.0"
   languageName: unknown
   linkType: soft
 
@@ -14787,25 +14787,24 @@ __metadata:
     "@rescript/react": "npm:~0.11.0"
     react: "npm:17.0.2"
     react-dom: "npm:17.0.2"
-    rescript: "npm:^10.1.2"
+    rescript: "npm:~11.1.0"
   peerDependencies:
     "@material-ui/core": 4.12.3
     "@rescript/react": ~0.10.3 || ~0.11.0
     react: ^17.0.2
     react-dom: ^17.0.2
-    rescript: ^9.1.2 || ^10.0.0
+    rescript: ^9.1.2 || ^10.0.0 || ^11.0.0
   languageName: unknown
   linkType: soft
 
-"rescript@npm:^10.1.2, rescript@npm:~10.1.2":
-  version: 10.1.2
-  resolution: "rescript@npm:10.1.2"
+"rescript@npm:~11.1.0":
+  version: 11.1.4
+  resolution: "rescript@npm:11.1.4"
   bin:
     bsc: bsc
-    bsrefmt: bsrefmt
     bstracing: lib/bstracing
     rescript: rescript
-  checksum: 10c0/85ba9ad230fc4120385e62b57d8e62d8b155da9137feec83956f8383d189664bdd0a82fd03584e1d0dda6e532a1c08a4ad4680766dfbb92f67da930f2bdc8f14
+  checksum: 10c0/7f12186a84209f586457a60e65755fcdfbcbb503ac805c60ab5132ce4c927bc264c3b851419ed5498ba7dc4066723377bb7453f893f482a0ccd424986d02beba
   languageName: node
   linkType: hard
 
