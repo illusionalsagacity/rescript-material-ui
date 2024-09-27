@@ -1,0 +1,47 @@
+[
+  structure_item 
+    Pstr_module
+    "StylesA" 
+      module_expr 
+        Pmod_extension "makeStyles"
+        [
+          structure_item 
+            Pstr_eval
+            expression 
+              attribute  "res.arity"
+                [
+                  structure_item 
+                    Pstr_eval
+                    expression 
+                      Pexp_constant PConst_int (1,None)
+                ]
+              Pexp_construct "Function$" 
+              Some
+                expression 
+                  Pexp_fun
+                  Nolabel
+                  None
+                  pattern 
+                    Ppat_var "theme" 
+                  expression 
+                    Pexp_record
+                    [
+                      "root" 
+                        expression 
+                          attribute  "res.uapp"
+                            []
+                          Pexp_apply
+                          expression 
+                            Pexp_ident "ReactDOM.Style.make" 
+                          [
+                            <arg>
+                            Nolabel
+                              expression 
+                                Pexp_construct "()" 
+                                None
+                          ]
+                    ]
+                    None
+        ]
+]
+

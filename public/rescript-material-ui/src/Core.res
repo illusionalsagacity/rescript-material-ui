@@ -10,7 +10,7 @@ module Breakpoint = {
 
   module UNSAFE_INTERNAL = {
     type breakpointFunc = breakpoint => string
-    external jsonToBreakpointFunc: Js.Json.t => breakpointFunc = "%identity"
+    external jsonToBreakpointFunc: Js.Json.t => (. breakpoint) => string = "%identity"
     external stringToBreakpoint: string => breakpoint = "%identity"
     external intToBreakpoint: int => breakpoint = "%identity"
     external stringToBreakpointResult: string => t = "%identity"
@@ -41,7 +41,8 @@ module Breakpoint = {
     | #down(#int(x)) =>
       x->UNSAFE_INTERNAL.intToBreakpoint
     }
-    theme.breakpoints->bpGet->Any.unsafeGetValue->UNSAFE_INTERNAL.jsonToBreakpointFunc(bpValue)
+    let func = theme.breakpoints->bpGet->Any.unsafeGetValue
+    UNSAFE_INTERNAL.jsonToBreakpointFunc(func)(bpValue)
   }
 
   let get = (theme: theme, breakpoint: breakpointDirection) =>

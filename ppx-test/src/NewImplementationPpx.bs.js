@@ -7,7 +7,7 @@ import * as Core from "@material-ui/core";
 import * as JsxRuntime from "react/jsx-runtime";
 import * as Styles from "@material-ui/core/styles";
 
-function options_generateId(param) {
+function options_generateId() {
   return "blasdnsad" + String(Js_math.random_int(0, 100));
 }
 

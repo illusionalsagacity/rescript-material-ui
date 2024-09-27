@@ -1,6 +1,6 @@
 {
   "name": "dev_tests",
-  "uncurried": false,
+  "uncurried": true,
   "sources": ["src"],
   "jsx": { "version": 4, "mode": "automatic" },
   "reason": {
