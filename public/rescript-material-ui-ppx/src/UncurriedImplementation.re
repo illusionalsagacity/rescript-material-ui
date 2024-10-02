@@ -218,61 +218,6 @@ let arity2 =
     None,
   );
 
-let getMakeStylesTypeUncurried = () =>
-  Typ.constr(
-    Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-    [
-      Typ.arrow(
-        Nolabel,
-        Typ.constr(
-          Longident.unflatten(["Mui", "Theme", "t"])
-          |> Option.get
-          |> Location.mknoloc,
-          [],
-        ),
-        Typ.constr(
-          Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-          [
-            Typ.arrow(
-              Nolabel,
-              Typ.constr(
-                Longident.unflatten(["Styles", "styles"])
-                |> Option.get
-                |> Location.mknoloc,
-                [],
-              ),
-              Typ.constr(
-                Longident.unflatten(["function$"])
-                |> Option.get
-                |> Location.mknoloc,
-                [
-                  Typ.arrow(
-                    Nolabel,
-                    Typ.constr(
-                      Longident.unflatten(["unit"])
-                      |> Option.get
-                      |> Location.mknoloc,
-                      [],
-                    ),
-                    Typ.constr(
-                      Longident.unflatten(["classes"])
-                      |> Option.get
-                      |> Location.mknoloc,
-                      [],
-                    ),
-                  ),
-                  arity1,
-                ],
-              ),
-            ),
-            arity1,
-          ],
-        ),
-      ),
-      arity1,
-    ],
-  );
-
 let func1 = (arg, ret) =>
   Typ.constr(
     Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
@@ -304,49 +249,141 @@ let useStylesType =
     ],
   );
 
-let getMakeStylesWithOptionsTypeUncurried = options =>
-  Typ.constr(
-    Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-    [
-      Typ.arrow(
-        Nolabel,
-        Typ.constr(
-          Longident.unflatten(["Mui", "Theme", "t"])
-          |> Option.get
-          |> Location.mknoloc,
-          [],
-        ),
-        Typ.constr(
-          Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-          [
-            Typ.arrow(
-              Nolabel,
-              options,
-              Typ.constr(
-                Longident.unflatten(["function$"])
-                |> Option.get
-                |> Location.mknoloc,
-                [
-                  Typ.arrow(
-                    Nolabel,
-                    Typ.constr(
-                      Longident.unflatten(["Styles", "styles"])
-                      |> Option.get
-                      |> Location.mknoloc,
-                      [],
-                    ),
-                    useStylesType,
-                  ),
-                  arity1,
-                ],
-              ),
-            ),
-          ],
-        ),
+let getMakeStylesTypeUncurried = () => {
+  func1(
+    func1(
+      Typ.constr(
+        Longident.unflatten(["Mui", "Theme", "t"])
+        |> Option.get
+        |> Location.mknoloc,
+        [],
       ),
-      arity2,
-    ],
+      Typ.constr(
+        Longident.unflatten(["Styles", "styles"])
+        |> Option.get
+        |> Location.mknoloc,
+        [],
+      ),
+    ),
+    useStylesType,
   );
+};
+// Typ.constr(
+//   Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
+//   [
+//     Typ.arrow(
+//       Nolabel,
+//       Typ.constr(
+//         Longident.unflatten(["Mui", "Theme", "t"])
+//         |> Option.get
+//         |> Location.mknoloc,
+//         [],
+//       ),
+//       Typ.constr(
+//         Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
+//         [
+//           Typ.arrow(
+//             Nolabel,
+//             Typ.constr(
+//               Longident.unflatten(["Styles", "styles"])
+//               |> Option.get
+//               |> Location.mknoloc,
+//               [],
+//             ),
+//             Typ.constr(
+//               Longident.unflatten(["function$"])
+//               |> Option.get
+//               |> Location.mknoloc,
+//               [
+//                 Typ.arrow(
+//                   Nolabel,
+//                   Typ.constr(
+//                     Longident.unflatten(["unit"])
+//                     |> Option.get
+//                     |> Location.mknoloc,
+//                     [],
+//                   ),
+//                   Typ.constr(
+//                     Longident.unflatten(["classes"])
+//                     |> Option.get
+//                     |> Location.mknoloc,
+//                     [],
+//                   ),
+//                 ),
+//                 arity1,
+//               ],
+//             ),
+//           ),
+//           arity1,
+//         ],
+//       ),
+//     ),
+//     arity1,
+//   ],
+// );
+
+let getMakeStylesWithOptionsTypeUncurried = options => {
+  func2(
+    func1(
+      Typ.constr(
+        Longident.unflatten(["Mui", "Theme", "t"])
+        |> Option.get
+        |> Location.mknoloc,
+        [],
+      ),
+      Typ.constr(
+        Longident.unflatten(["Styles", "styles"])
+        |> Option.get
+        |> Location.mknoloc,
+        [],
+      ),
+    ),
+    options,
+    useStylesType,
+  );
+};
+// Typ.constr(
+//   Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
+//   [
+//     Typ.arrow(
+//       Nolabel,
+//       Typ.constr(
+//         Longident.unflatten(["Mui", "Theme", "t"])
+//         |> Option.get
+//         |> Location.mknoloc,
+//         [],
+//       ),
+//       Typ.constr(
+//         Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
+//         [
+//           Typ.arrow(
+//             Nolabel,
+//             options,
+//             Typ.constr(
+//               Longident.unflatten(["function$"])
+//               |> Option.get
+//               |> Location.mknoloc,
+//               [
+//                 Typ.arrow(
+//                   Nolabel,
+//                   Typ.constr(
+//                     Longident.unflatten(["Styles", "styles"])
+//                     |> Option.get
+//                     |> Location.mknoloc,
+//                     [],
+//                   ),
+//                   useStylesType,
+//                 ),
+//                 arity1,
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//     arity2,
+//   ],
+// );
 
 let getTypeExpressions = (fields: rawFields) => {
   let keys = fields |> parseFields;
@@ -591,9 +628,7 @@ let rewriteMakeStylesWithTheme =
     Mty.mk(
       Pmty_signature([
         Sig.type_(Nonrecursive, [classTypeExpression]),
-        Sig.value(
-          Val.mk(Location.mknoloc("useStyles"), useStylesType),
-        ),
+        Sig.value(Val.mk(Location.mknoloc("useStyles"), useStylesType)),
       ]),
     ),
   );
