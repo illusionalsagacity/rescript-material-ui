@@ -38,8 +38,6 @@ jobs:
       - run: opam exec -- dune build
         working-directory: public/rescript-material-ui-ppx
 
-      - run: corepack enable
-
       - name: Yarn install
         run: yarn
 
