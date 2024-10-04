@@ -21,9 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install yarn
-        run: npm i -g yarn
-
       - name: Enable corepack
         run: corepack enable
 
@@ -32,8 +29,8 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           architecture: ${{ matrix.arch }}
-          cache: 'yarn'
-          cache-dependency-path: 'yarn.lock'
+          # cache: 'yarn'
+          # cache-dependency-path: 'yarn.lock'
 
       - name: Use OCaml
         uses: avsm/setup-ocaml@v2
