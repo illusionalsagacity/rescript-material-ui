@@ -21,7 +21,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: 'moonrepo/setup-proto@v0'
+      - uses: moonrepo/setup-toolchain@v0
+        with:
+          auto-install: true
+          cache: false
       - run: proto use
 
       - name: Use OCaml
@@ -85,7 +88,10 @@ jobs:
           mv public/rescript-material-ui-ppx/binaries/linux/bin.exe public/rescript-material-ui-ppx/bin/rescript_material_ui_ppx-linux-x64.exe
           rm -rf public/rescript-material-ui-ppx/binaries
 
-      - uses: 'moonrepo/setup-proto@v0'
+      - uses: moonrepo/setup-toolchain@v0
+        with:
+          auto-install: true
+          cache: false
       - run: proto use
 
       - name: Publish
