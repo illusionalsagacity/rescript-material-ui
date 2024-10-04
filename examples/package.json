@@ -9,11 +9,11 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rescript build -with-deps && parcel build src/index.html",
+    "build": "rescript build -with-deps && vite build",
     "watch": "rescript build -with-deps -w",
     "clean": "rescript clean -with-deps",
     "format": "rescript format -all",
-    "start": "parcel serve src/index.html"
+    "start": "vite serve"
   },
   "dependencies": {
     "@material-ui/core": "4.12.3",
@@ -26,6 +26,6 @@
     "rescript": "~11.1.0"
   },
   "devDependencies": {
-    "parcel": "^2.0.1"
+    "vite": "^5"
   }
 }
