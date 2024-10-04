@@ -10,71 +10,50 @@ on:
 
 jobs:
   build:
-    name: Build ${{ matrix.os }}
+    name: Build ${{ matrix.os }} ${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # Stay on ubuntu-18.04 because of https://github.com/cca-io/rescript-material-ui/issues/141
-        os: [ubuntu-18.04, windows-latest, macOS-latest]
+        os: [ubuntu-18.04, macOS-latest]
+        arch: [x64, amd64]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version-file: '.nvmrc'
+          architecture: ${{ matrix.arch }}
+
+      - name: Use OCaml
+        uses: avsm/setup-ocaml@v2
+        with:
+          ocaml-compiler: 4.12.1
+
+      - run: opam install . --deps-only
+        working-directory: public/rescript-material-ui-ppx
+
+      - run: opam exec -- dune build
+        working-directory: public/rescript-material-ui-ppx
+
+      - run: corepack enable
 
       - name: Yarn install
         run: yarn
-
-      - name: JSON schema parser
-        working-directory: tools/json-schema-parser
-        shell: bash
-        run: yarn build
-
-      - name: Component extractor
-        working-directory: tools/component-extractor
-        shell: bash
-        run: ./build.sh
-
-      - name: Binding generator
-        working-directory: tools/binding-generator
-        shell: bash
-        run: ./build.sh
-
-      - name: Compile rescript-material-ui
-        working-directory: public/rescript-material-ui
-        run: yarn build
-
-      - name: Compile rescript-material-ui-lab
-        working-directory: public/rescript-material-ui-lab
-        run: yarn build
-
-      - name: Examples
-        working-directory: examples
-        run: yarn build
-
-      # PPX
-      - name: Install esy
-        run: npm install -g esy@latest
-
-      - name: Build PPX
-        working-directory: public/rescript-material-ui-ppx
-        run: esy
 
       - name: Build PPX test project
         working-directory: ppx-test
         run: yarn build
 
-      - name: Upload artifacts ${{ matrix.os }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.os }}
-          path: public/rescript-material-ui-ppx/_build/default/src/bin.exe
-        env:
-          CI: true
+      # - name: Upload artifacts ${{ matrix.os }}
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: ${{ matrix.os }}
+      #     path: public/rescript-material-ui-ppx/_build/default/src/bin.exe
+      #   env:
+      #     CI: true
 
   publish:
     if: github.event_name != 'pull_request'
