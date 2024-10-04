@@ -21,16 +21,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Enable corepack
-        run: corepack enable
-  
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-          architecture: ${{ matrix.arch }}
-          # cache: 'yarn'
-          # cache-dependency-path: 'yarn.lock'
+      - uses: 'moonrepo/setup-proto@v0'
+      - run: proto use
 
       - name: Use OCaml
         uses: avsm/setup-ocaml@v2
@@ -62,41 +54,39 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: build
     name: Publish
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Download linux artifacts
         uses: actions/download-artifact@master
         with:
-          name: ubuntu-18.04
+          name: ubuntu-22.04
           path: public/rescript-material-ui-ppx/binaries/linux
 
       - name: Download macOS artifacts
         uses: actions/download-artifact@master
         with:
-          name: macOS-latest
+          name: macOS-14
           path: public/rescript-material-ui-ppx/binaries/darwin
 
-      - name: Download windows artifacts
-        uses: actions/download-artifact@master
-        with:
-          name: windows-latest
-          path: public/rescript-material-ui-ppx/binaries/windows
+      # - name: Download windows artifacts
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: windows-latest
+      #     path: public/rescript-material-ui-ppx/binaries/windows
 
       - name: Move artifacts
         run: |
           mkdir -p public/rescript-material-ui-ppx/bin
           mv public/rescript-material-ui-ppx/binaries/darwin/bin.exe public/rescript-material-ui-ppx/bin/rescript_material_ui_ppx-darwin-x64.exe
-          mv public/rescript-material-ui-ppx/binaries/windows/bin.exe public/rescript-material-ui-ppx/bin/rescript_material_ui_ppx-win-x64.exe
+          # mv public/rescript-material-ui-ppx/binaries/windows/bin.exe public/rescript-material-ui-ppx/bin/rescript_material_ui_ppx-win-x64.exe
           mv public/rescript-material-ui-ppx/binaries/linux/bin.exe public/rescript-material-ui-ppx/bin/rescript_material_ui_ppx-linux-x64.exe
           rm -rf public/rescript-material-ui-ppx/binaries
 
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '12.x'
+      - uses: 'moonrepo/setup-proto@v0'
+      - run: proto use
 
       - name: Publish
         working-directory: public/rescript-material-ui-ppx
