@@ -19,17 +19,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Enable corepack
-        run: corepack enable
+        uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           architecture: ${{ matrix.arch }}
           cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
+
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Use OCaml
         uses: avsm/setup-ocaml@v2
@@ -43,7 +44,7 @@ jobs:
         working-directory: public/rescript-material-ui-ppx
 
       - name: Yarn install
-        run: yarn
+        run: yarn install --immutable
 
       - name: Build PPX test project
         working-directory: ppx-test
