@@ -8,5 +8,6 @@
     "tools/json-schema-parser",
     "tools/component-extractor",
     "tools/binding-generator"
-  ]
+  ],
+  "packageManager": "yarn@4.5.0"
 }
