@@ -1,3 +1,11 @@
+module type Styles = {
+  type classes = {
+    root: string,
+    rounded: string,
+  }
+  let useStyles: unit => classes
+}
+
 type styles = {
   root: ReactDOM.Style.t,
   rounded: ReactDOM.Style.t,
@@ -8,14 +16,11 @@ type classes = {
 }
 
 @module("mui/styles")
-external makeStyles: (Mui.Theme.t => styles) => unit => classes = "makeStyles"
+external makeStyles: styles => unit => classes = "makeStyles"
 
-// let useStyles = makeStyles(theme => {
-//   root: ReactDOM.Style.make(~width="100%", ~maxWidth="970px", ~margin="0 auto", ()),
-//   rounded: ReactDOM.Style.make(
-//     ~backgroundColor=theme.palette.background.paper,
-//     ~color=theme.palette.text.primary,
-//     ~padding="15px",
-//     (),
-//   ),
-// })
+let useStyles = makeStyles({
+  root: ReactDOM.Style.make(),
+  rounded: ReactDOM.Style.make(),
+})
+
+let classes = useStyles()

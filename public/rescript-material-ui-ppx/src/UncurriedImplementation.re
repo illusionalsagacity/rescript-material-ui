@@ -227,29 +227,41 @@ let func1 = (arg, ret) =>
 let func2 = (arg1, arg2, ret) =>
   Typ.constr(
     Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-    [Typ.arrow(Nolabel, arg1, func1(arg2, ret)), arity2],
-  );
-
-let useStylesType =
-  Typ.constr(
-    Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
     [
-      Typ.arrow(
-        Nolabel,
-        Typ.constr(
-          Longident.unflatten(["unit"]) |> Option.get |> Location.mknoloc,
-          [],
-        ),
-        Typ.constr(
-          Longident.unflatten(["classes"]) |> Option.get |> Location.mknoloc,
-          [],
-        ),
+      Typ.arrow(Nolabel, arg1, Typ.arrow(Nolabel, arg2, ret)),
+      Typ.variant(
+        [Ast_helper.Rf.mk(Rtag(Location.mknoloc("Has_arity2"), true, []))],
+        Closed,
+        None,
       ),
-      arity1,
     ],
   );
 
+let useStylesType =
+  func1(
+    Typ.constr(
+      Longident.unflatten(["unit"]) |> Option.get |> Location.mknoloc,
+      [],
+    ),
+    Typ.constr(
+      Longident.unflatten(["classes"]) |> Option.get |> Location.mknoloc,
+      [],
+    ),
+  );
+
 let getMakeStylesTypeUncurried = () => {
+  func1(
+    Typ.constr(
+      Longident.unflatten(["Styles", "styles"])
+      |> Option.get
+      |> Location.mknoloc,
+      [],
+    ),
+    useStylesType,
+  );
+};
+
+let getMakeStylesFuncTypeUncurried = () => {
   func1(
     func1(
       Typ.constr(
@@ -268,61 +280,21 @@ let getMakeStylesTypeUncurried = () => {
     useStylesType,
   );
 };
-// Typ.constr(
-//   Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-//   [
-//     Typ.arrow(
-//       Nolabel,
-//       Typ.constr(
-//         Longident.unflatten(["Mui", "Theme", "t"])
-//         |> Option.get
-//         |> Location.mknoloc,
-//         [],
-//       ),
-//       Typ.constr(
-//         Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-//         [
-//           Typ.arrow(
-//             Nolabel,
-//             Typ.constr(
-//               Longident.unflatten(["Styles", "styles"])
-//               |> Option.get
-//               |> Location.mknoloc,
-//               [],
-//             ),
-//             Typ.constr(
-//               Longident.unflatten(["function$"])
-//               |> Option.get
-//               |> Location.mknoloc,
-//               [
-//                 Typ.arrow(
-//                   Nolabel,
-//                   Typ.constr(
-//                     Longident.unflatten(["unit"])
-//                     |> Option.get
-//                     |> Location.mknoloc,
-//                     [],
-//                   ),
-//                   Typ.constr(
-//                     Longident.unflatten(["classes"])
-//                     |> Option.get
-//                     |> Location.mknoloc,
-//                     [],
-//                   ),
-//                 ),
-//                 arity1,
-//               ],
-//             ),
-//           ),
-//           arity1,
-//         ],
-//       ),
-//     ),
-//     arity1,
-//   ],
-// );
 
 let getMakeStylesWithOptionsTypeUncurried = options => {
+  func2(
+    Typ.constr(
+      Longident.unflatten(["Styles", "styles"])
+      |> Option.get
+      |> Location.mknoloc,
+      [],
+    ),
+    options,
+    useStylesType,
+  );
+};
+
+let getMakeStylesFuncWithOptionsTypeUncurried = options => {
   func2(
     func1(
       Typ.constr(
@@ -342,48 +314,6 @@ let getMakeStylesWithOptionsTypeUncurried = options => {
     useStylesType,
   );
 };
-// Typ.constr(
-//   Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-//   [
-//     Typ.arrow(
-//       Nolabel,
-//       Typ.constr(
-//         Longident.unflatten(["Mui", "Theme", "t"])
-//         |> Option.get
-//         |> Location.mknoloc,
-//         [],
-//       ),
-//       Typ.constr(
-//         Longident.unflatten(["function$"]) |> Option.get |> Location.mknoloc,
-//         [
-//           Typ.arrow(
-//             Nolabel,
-//             options,
-//             Typ.constr(
-//               Longident.unflatten(["function$"])
-//               |> Option.get
-//               |> Location.mknoloc,
-//               [
-//                 Typ.arrow(
-//                   Nolabel,
-//                   Typ.constr(
-//                     Longident.unflatten(["Styles", "styles"])
-//                     |> Option.get
-//                     |> Location.mknoloc,
-//                     [],
-//                   ),
-//                   useStylesType,
-//                 ),
-//                 arity1,
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-//     arity2,
-//   ],
-// );
 
 let getTypeExpressions = (fields: rawFields) => {
   let keys = fields |> parseFields;
@@ -469,6 +399,9 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
                 Vb.mk(
                   Ast_helper.Pat.var(Location.mknoloc("useStyles")),
                   Exp.apply(
+                    ~attrs=[
+                      Attr.mk(Location.mknoloc("res.uapp"), PStr([])),
+                    ],
                     Exp.ident(
                       Longident.unflatten(["makeStyles"])
                       |> Option.get
@@ -512,7 +445,7 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
       Pmty_signature([
         Sig.type_(Nonrecursive, [classTypeExpression]),
         Sig.value(
-          Val.mk(Location.mknoloc("useStyles"), useStylesType) // FIXME: this should be the type signature of useStyles -- it's currently the type signature of makeStyles
+          Val.mk(Location.mknoloc("useStyles"), useStylesType)
         ),
       ]),
     ),
@@ -528,17 +461,17 @@ let rewriteMakeStylesWithTheme =
   let (classTypeExpression, styleTypeExpression) =
     getTypeExpressions(fields);
 
-  let _options2 = options |> Option.map(createOptionsWithTypeConstraint);
-  let _makeStylesTypeSignature =
-    switch (_options2) {
-    | Some(_options) =>
-      getMakeStylesWithOptionsTypeUncurried(
+  let options = options |> Option.map(createOptionsWithTypeConstraint);
+  let makeStylesTypeSignature =
+    switch (options) {
+    | Some(_) =>
+      getMakeStylesFuncWithOptionsTypeUncurried(
         Typ.constr(
           Longident.unflatten(["options"]) |> Option.get |> Location.mknoloc,
           [],
         ),
       )
-    | None => getMakeStylesTypeUncurried()
+    | None => getMakeStylesFuncTypeUncurried()
     };
 
   Mod.constraint_(
@@ -547,7 +480,7 @@ let rewriteMakeStylesWithTheme =
         List.append(
           switch (options) {
           | None => []
-          | Some(options) => createOptionsWithTypeConstraint(options)
+          | Some(options) => options
           },
           [
             Str.module_(
@@ -588,7 +521,7 @@ let rewriteMakeStylesWithTheme =
                 ],
                 ~prim=["makeStyles"],
                 Location.mknoloc("makeStyles"),
-                _makeStylesTypeSignature,
+                makeStylesTypeSignature,
               ),
             ),
             Str.value(
@@ -597,6 +530,9 @@ let rewriteMakeStylesWithTheme =
                 Vb.mk(
                   Ast_helper.Pat.var(Location.mknoloc("useStyles")),
                   Exp.apply(
+                    ~attrs=[
+                      Attr.mk(Location.mknoloc("res.uapp"), PStr([])),
+                    ],
                     Exp.ident(
                       Longident.unflatten(["makeStyles"])
                       |> Option.get
