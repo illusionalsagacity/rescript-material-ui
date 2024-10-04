@@ -17,7 +17,7 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        NewImplementation.rewriteMakeStyles(fields, None)
+        UncurriedImplementation.rewriteMakeStyles(fields, None)
       // record with options
       | PStr([
           {
@@ -36,7 +36,7 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        NewImplementation.rewriteMakeStyles(fields, Some(options))
+        UncurriedImplementation.rewriteMakeStyles(fields, Some(options))
       // theme function
       | PStr([
           {

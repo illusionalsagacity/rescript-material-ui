@@ -374,6 +374,7 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
                 ),
               ],
             ),
+            // binding for makeStyles
             Str.primitive(
               Val.mk(
                 ~attrs=[

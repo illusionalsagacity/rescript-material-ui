@@ -27,17 +27,12 @@ module Styles4 = %makeStyles((
   {name: "test"},
 ))
 
-// let _classes3 = Styles3.useStyles() // FIXME: these are getting applied with Curry._1
-// let _classes4 = Styles4.useStyles() // FIXME: these are getting applied with Curry._1
-
-// FIXME: something about the way we call `makeStyles` is missing an annotation in the ppx to say it's been fully applied?
-
 @react.component
 let make = () => {
   let _classes1 = Styles1.useStyles()
   let _classes2 = Styles2.useStyles()
-  let _classes3 = Styles3.useStyles() // FIXME: these are getting applied with Curry._1
-  let _classes4 = Styles4.useStyles() // FIXME: these are getting applied with Curry._1
+  let _classes3 = Styles3.useStyles()
+  let _classes4 = Styles4.useStyles()
   open Mui
   <Paper>
     <Typography> {"Some Content"->React.string} </Typography>
