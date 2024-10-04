@@ -24,8 +24,7 @@ jobs:
       - uses: moonrepo/setup-toolchain@v0
         with:
           auto-install: true
-          cache: false
-      - run: proto use
+          # cache: false
 
       - name: Use OCaml
         uses: avsm/setup-ocaml@v2
@@ -48,7 +47,7 @@ jobs:
       # - name: Upload artifacts ${{ matrix.os }}
       #   uses: actions/upload-artifact@v2
       #   with:
-      #     name: ${{ matrix.os }}
+      #     name: ${{ matrix.os }}-${{ matrix.arch }}
       #     path: public/rescript-material-ui-ppx/_build/default/src/bin.exe
       #   env:
       #     CI: true
@@ -91,8 +90,7 @@ jobs:
       - uses: moonrepo/setup-toolchain@v0
         with:
           auto-install: true
-          cache: false
-      - run: proto use
+          # cache: false
 
       - name: Publish
         working-directory: public/rescript-material-ui-ppx
