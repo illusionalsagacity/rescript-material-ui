@@ -12,7 +12,7 @@
   },
   "suffix": ".res.mjs",
   "ppx-flags": [
-    "../public/rescript-material-ui-ppx/_build/default/src/bin.exe"
+    "../public/rescript-material-ui-ppx/_build/default/src/Bin.exe"
   ],
   "pinned-dependencies": ["rescript-material-ui", "rescript-material-ui-lab"],
   "bs-dependencies": ["@rescript/react", "rescript-material-ui"],
