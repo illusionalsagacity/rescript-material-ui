@@ -9,7 +9,9 @@ module App = {
     <NewImplementationTheme />
     <br />
     <br />
-    <center> <Typography variant=#h4> {React.string("PPX Result")} </Typography> </center>
+    <center>
+      <Typography variant=#h4> {React.string("PPX Result")} </Typography>
+    </center>
     <br />
     <br />
     <NewImplementationPpx />
@@ -19,6 +21,7 @@ module App = {
   </>
 }
 
+@@warning("-3")
 switch ReactDOM.querySelector("#app") {
 | Some(domElement) => ReactDOM.render(<App />, domElement)
 | None => ()

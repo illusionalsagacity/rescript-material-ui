@@ -4,6 +4,7 @@ import * as React from "react";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Lab from "@material-ui/lab";
 import * as Core from "@material-ui/core";
+import * as JsxRuntime from "react/jsx-runtime";
 
 var top100Films = [
   {
@@ -111,7 +112,7 @@ var top100Films = [
     year: 1995
   },
   {
-    title: "L\xc3\xa9on: The Professional",
+    title: "Léon: The Professional",
     year: 1994
   },
   {
@@ -247,7 +248,7 @@ var top100Films = [
     year: 1980
   },
   {
-    title: "WALL\xc2\xb7E",
+    title: "WALL·E",
     year: 2008
   },
   {
@@ -315,7 +316,7 @@ var top100Films = [
     year: 2000
   },
   {
-    title: "Am\xc3\xa9lie",
+    title: "Amélie",
     year: 2001
   },
   {
@@ -408,8 +409,8 @@ var top100Films = [
   }
 ];
 
-function ExampleAutocomplete(Props) {
-  return React.createElement(Lab.Autocomplete, {
+function ExampleAutocomplete(props) {
+  return JsxRuntime.jsx(Lab.Autocomplete, {
               fullWidth: true,
               getOptionLabel: (function (option) {
                   return option.title;
@@ -432,6 +433,5 @@ var make = ExampleAutocomplete;
 export {
   top100Films ,
   make ,
-  
 }
 /* react Not a pure module */

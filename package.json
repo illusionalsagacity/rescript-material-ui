@@ -4,9 +4,7 @@
     "examples",
     "public/rescript-material-ui",
     "public/rescript-material-ui-lab",
-    "ppx-test",
-    "tools/json-schema-parser",
-    "tools/component-extractor",
-    "tools/binding-generator"
-  ]
+    "ppx-test"
+  ],
+  "packageManager": "yarn@4.5.0"
 }

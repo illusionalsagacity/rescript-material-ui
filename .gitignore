@@ -7,12 +7,13 @@ yarn-error.log*
 # Dependency directories
 node_modules/
 
-# Parcel
+# vite
 dist/
-.parcel-cache
+.vite
 
 # Package files
 output
+_build
 
 # macOS
 .DS_Store
@@ -21,3 +22,13 @@ output
 lib/
 .merlin
 .bsb.lock
+*.cmt
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

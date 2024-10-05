@@ -1,10 +1,8 @@
 {
-  "name": "rescript-material-ui-ppx",
+  "name": "@illusionalsagacity/rescript-material-ui-ppx",
   "version": "3.0.2",
-  "repository": "https://github.com/cca-io/rescript-material-ui",
-  "private": false,
-  "homepage": "https://rescript-material-ui.cca.io/",
-  "bugs": "https://github.com/cca-io/rescript-material-ui/issues",
+  "repository": "https://github.com/illusionalsagacity/rescript-material-ui",
+  "bugs": "https://github.com/illusionalsagacity/rescript-material-ui/issues",
   "author": "Jonathan Siebern <jsiebern88@gmail.com>",
   "contributors": [
     "Christoph Knittel <ck@cca.io>",
@@ -12,6 +10,8 @@
   ],
   "license": "MIT",
   "scripts": {
+    "test:source": "bsc -only-parse -bs-jsx 4 -bs-jsx-mode automatic -ppx ./_build/default/src/Bin.exe -dsource",
+    "test:parsetree": "bsc -only-parse -bs-jsx 4 -bs-jsx-mode automatic -ppx ./_build/default/src/Bin.exe -dparsetree",
     "postinstall": "node ./copyPlatformBinaryInPlace.js"
   },
   "keywords": [
@@ -20,17 +20,30 @@
     "material-ui"
   ],
   "description": "This is a ppx for using the withStyles component in ReScript Material-UI",
+  "devDependencies": {
+    "rescript": "^11.1.4"
+  },
   "peerDependencies": {
     "@material-ui/core": "4.12.3",
-    "@rescript/react": "^0.10.3",
-    "rescript-material-ui": "^3.0.0",
-    "rescript": "^9.1.2"
+    "@rescript/react": "~0.10.3 || ~0.11.0 || ~0.12.0 || ~0.13.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "rescript": "^9.1.2 || ^10.0.0 || ^11.0.0",
+    "rescript-material-ui": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "/bin",
-    "copyPlatformBinaryInPlace.js"
+    "./bin/rescript_material_ui_ppx-*.exe",
+    "./copyPlatformBinaryInPlace.js"
+  ],
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
   ]
 }

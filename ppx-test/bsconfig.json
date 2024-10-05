@@ -1,17 +1,17 @@
 {
   "name": "dev_tests",
+  "uncurried": true,
   "sources": ["src"],
-  "reason": {
-    "react-jsx": 3
-  },
+  "jsx": { "version": 4, "mode": "automatic" },
   "package-specs": {
     "module": "es6",
     "in-source": true
   },
-  "suffix": ".bs.js",
+  "suffix": ".res.mjs",
   "ppx-flags": [
-    "../public/rescript-material-ui-ppx/_build/default/src/bin.exe"
+    "../public/rescript-material-ui-ppx/_build/default/src/Bin.exe"
   ],
+  "pinned-dependencies": ["rescript-material-ui", "rescript-material-ui-lab"],
   "bs-dependencies": ["@rescript/react", "rescript-material-ui"],
   "warnings": {
     "number": "+A-48-30-42-40",

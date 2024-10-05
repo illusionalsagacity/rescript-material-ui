@@ -1,7 +1,12 @@
 (executable
- (name bin)
+ (name Bin)
  (public_name rescript_material_ui_ppx)
- (libraries reason ocaml-migrate-parsetree)
+ (libraries
+  ppx_tools_versioned.metaquot_410
+  reason
+  ocaml-migrate-parsetree
+  yojson
+  result)
  (ocamlopt_flags (-linkall))
  (preprocess
   (pps ppx_tools_versioned.metaquot_410)))
