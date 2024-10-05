@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+const fs = require('node:fs');
+const process = require('node:process');
 
-var arch = process.arch;
-var platform = process.platform;
+let arch = process.arch;
+let platform = process.platform;
 
 if (arch === 'ia32') {
   arch = 'x86';
@@ -23,7 +24,7 @@ copyBinary(
 );
 
 function copyBinary(filename, destFilename) {
-  var supported = fs.existsSync(filename);
+  let supported = fs.existsSync(filename);
 
   if (!supported) {
     console.error(
@@ -44,13 +45,13 @@ function copyBinary(filename, destFilename) {
 
   if (!fs.existsSync(destFilename)) {
     copyFileSync(filename, destFilename);
-    fs.chmodSync(destFilename, 0755);
+    fs.chmodSync(destFilename, 0o755);
   }
 
   var destFilenameExe = destFilename + '.exe';
   if (!fs.existsSync(destFilenameExe)) {
     copyFileSync(filename, destFilenameExe);
-    fs.chmodSync(destFilenameExe, 0755);
+    fs.chmodSync(destFilenameExe, 0o755);
   }
 }
 

@@ -2,9 +2,14 @@
 
 This library creates a code extension for conveniently using the `withStyles` functionality of MaterialUi in a typesafe way.
 
-Check out the documentation here: [https://rescript-material-ui.cca.io/](https://rescript-material-ui.cca.io/)
-
 Testing printing:
+
+```shell
+yarn run test:source -uncurried ../../ppx-test/src/NewImplementationThemePpx.res
+yarn run test:parsetree -uncurried ../../ppx-test/src/NewImplementationThemePpx.res
+```
+
+or
 
 ```shell
 node_modules/rescript/bsc \
@@ -13,6 +18,7 @@ node_modules/rescript/bsc \
   -bs-jsx-mode automatic \
   -ppx public/rescript-material-ui-ppx/_build/default/src/Bin.exe \
   -dsource \
+  -uncurried \
   ppx-test/src/NewImplementationThemePpx.res
 ```
 

@@ -19,7 +19,9 @@
     "@rescript/react": "~0.11.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rescript": "~11.1.0"
+    "rescript": "^11.1.4",
+    "rescript-material-ui": "workspace:*",
+    "rescript-material-ui-lab": "workspace:*"
   },
   "devDependencies": {
     "vite": "^5"
