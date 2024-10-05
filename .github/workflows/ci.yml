@@ -34,7 +34,7 @@ jobs:
       - run: opam install . --deps-only
         working-directory: public/rescript-material-ui-ppx
 
-      - run: opam exec -- dune build
+      - run: opam exec -- dune build --verbose; ls -l _build/install/default/bin
         working-directory: public/rescript-material-ui-ppx
 
       - name: Yarn install
