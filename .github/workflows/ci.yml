@@ -101,8 +101,9 @@ jobs:
       - name: yarn pack
         working-directory: public/rescript-material-ui-ppx
         run: yarn pack --dry-run
-      # - name: Publish
-      #   working-directory: public/rescript-material-ui-ppx
-      #   run: yarn publish --access public
-      #   env:
-      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Publish
+        working-directory: public/rescript-material-ui-ppx
+        run: yarn npm publish --access public
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
