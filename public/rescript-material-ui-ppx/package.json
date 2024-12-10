@@ -1,6 +1,6 @@
 {
   "name": "@illusionalsagacity/rescript-material-ui-ppx",
-  "version": "3.0.2",
+  "version": "3.0.2-mui5",
   "repository": "https://github.com/illusionalsagacity/rescript-material-ui",
   "bugs": "https://github.com/illusionalsagacity/rescript-material-ui/issues",
   "author": "Jonathan Siebern <jsiebern88@gmail.com>",
