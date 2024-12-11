@@ -113,7 +113,7 @@ jobs:
         if: success() && (github.event_name == 'pull_request' || !startsWith(github.ref, 'refs/tags/'))
         run: |
           yarn version prerelease
-          yarn npm publish --access public --tag dev
+          yarn npm publish --access public
         working-directory: public/rescript-material-ui-ppx
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
