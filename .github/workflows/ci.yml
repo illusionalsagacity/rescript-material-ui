@@ -58,6 +58,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # - run: git checkout HEAD^
 
       - name: Download linux artifacts (x64)
         uses: actions/download-artifact@v4
@@ -112,8 +115,8 @@ jobs:
       - name: Publish Prerelease
         if: success() && (github.event_name == 'pull_request' || !startsWith(github.ref, 'refs/tags/'))
         run: |
-          yarn version prerelease
-          yarn npm publish --access public
+          yarn version -i prerelease
+          yarn npm publish --access public --tag next
         working-directory: public/rescript-material-ui-ppx
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
