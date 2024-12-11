@@ -63,25 +63,25 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ubuntu-22.04-x64
-          path: ppx/binaries/linux-x64
+          path: public/rescript-material-ui-ppx/binaries/linux-x64
 
       - name: Download linux artifacts (arm64)
         uses: actions/download-artifact@v4
         with:
           name: ubuntu-22.04-arm64
-          path: ppx/binaries/linux-arm64
+          path: public/rescript-material-ui-ppx/binaries/linux-arm64
 
       - name: Download macOS artifacts (x64)
         uses: actions/download-artifact@v4
         with:
           name: macOS-14-x64
-          path: ppx/binaries/darwin-x64
+          path: public/rescript-material-ui-ppx/binaries/darwin-x64
 
       - name: Download macOS artifacts (arm64)
         uses: actions/download-artifact@v4
         with:
           name: macOS-14-arm64
-          path: ppx/binaries/darwin-arm64
+          path: public/rescript-material-ui-ppx/binaries/darwin-arm64
 
       - name: Move artifacts
         working-directory: public/rescript-material-ui-ppx
