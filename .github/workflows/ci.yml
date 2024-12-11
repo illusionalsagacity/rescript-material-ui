@@ -110,7 +110,7 @@ jobs:
           yarn npm publish --access public
         working-directory: public/rescript-material-ui-ppx
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Publish Prerelease
         if: success() && (github.event_name == 'pull_request' || !startsWith(github.ref, 'refs/tags/'))
@@ -119,4 +119,4 @@ jobs:
           yarn npm publish --access public --tag next
         working-directory: public/rescript-material-ui-ppx
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
