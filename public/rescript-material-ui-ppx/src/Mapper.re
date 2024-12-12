@@ -3,7 +3,7 @@ open Ast_410;
 open Asttypes;
 open Parsetree;
 
-let withStylesMapper = (_argv, _) => {
+let withStylesMapper = (import_path, _argv, _) => {
   ...Ast_mapper.default_mapper,
   module_expr: (mapper, mexpr) => {
     switch (mexpr) {
@@ -17,7 +17,7 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        UncurriedImplementation.rewriteMakeStyles(fields, None)
+        UncurriedImplementation.rewriteMakeStyles(fields, None, import_path)
       // record with options
       | PStr([
           {
@@ -36,7 +36,11 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        UncurriedImplementation.rewriteMakeStyles(fields, Some(options))
+        UncurriedImplementation.rewriteMakeStyles(
+          fields,
+          Some(options),
+          import_path,
+        )
       // theme function
       | PStr([
           {
@@ -139,7 +143,12 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        UncurriedImplementation.rewriteMakeStylesWithTheme(fields, fn, None)
+        UncurriedImplementation.rewriteMakeStylesWithTheme(
+          fields,
+          fn,
+          None,
+          import_path,
+        )
       // uncurried function with options
       | PStr([
           {
@@ -187,6 +196,7 @@ let withStylesMapper = (_argv, _) => {
           fields,
           fn,
           Some(options),
+          import_path,
         )
       | _ => Utils.raiseError(~loc, None)
       }

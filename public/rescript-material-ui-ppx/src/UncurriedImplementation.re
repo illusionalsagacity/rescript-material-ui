@@ -327,7 +327,7 @@ let getTypeExpressions = (fields: rawFields) => {
   );
 };
 
-let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
+let rewriteMakeStyles = (fields: rawFields, options: option(rawFields), importPath) => {
   let (classTypeExpression, styleTypeExpression) =
     getTypeExpressions(fields);
 
@@ -383,7 +383,7 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
                     PStr([
                       Str.eval(
                         Exp.constant(
-                          Const.string("@mui/styles"),
+                          Const.string(importPath),
                         ),
                       ),
                     ]),
@@ -458,6 +458,7 @@ let rewriteMakeStylesWithTheme =
       fields: rawFields,
       funcExpr: Parsetree.expression,
       options: option(rawFields),
+      importPath,
     ) => {
   let (classTypeExpression, styleTypeExpression) =
     getTypeExpressions(fields);
@@ -514,7 +515,7 @@ let rewriteMakeStylesWithTheme =
                     PStr([
                       Str.eval(
                         Exp.constant(
-                          Const.string("@mui/styles"),
+                          Const.string(importPath),
                         ),
                       ),
                     ]),
