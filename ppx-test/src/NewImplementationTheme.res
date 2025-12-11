@@ -15,15 +15,14 @@ module Styles: {
   }
   type useStyles = unit => classes
   @module("@material-ui/core/styles")
-  external makeStyles: (. Mui.Theme.t => styles) => useStyles = "makeStyles"
-  let useStyles = makeStyles(. theme => {
-    root: ReactDOM.Style.make(~width="100%", ~maxWidth="970px", ~margin="0 auto", ()),
-    rounded: ReactDOM.Style.make(
-      ~backgroundColor=theme.palette.background.paper,
-      ~color=theme.palette.text.primary,
-      ~padding="15px",
-      (),
-    ),
+  external makeStyles: (Mui.Theme.t => styles) => useStyles = "makeStyles"
+  let useStyles = makeStyles(theme => {
+    root: {width: "100%", maxWidth: "970px", margin: "0 auto"},
+    rounded: {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      padding: "15px",
+    },
   })
 }
 
@@ -31,7 +30,7 @@ module Styles: {
 let make = () => {
   let classes = Styles.useStyles()
   open Mui
-  <Paper classes={Paper.Classes.make(~root=classes.root, ~rounded=classes.rounded, ())}>
+  <Paper classes={root: classes.root, rounded: classes.rounded}>
     <Typography> {"Some Content"->React.string} </Typography>
   </Paper>
 }

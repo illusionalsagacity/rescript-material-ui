@@ -61,7 +61,12 @@ let withStylesMapper = (import_path, _argv, _) => {
             _,
           },
         ]) =>
-        NewImplementation.rewriteMakeStylesWithTheme(fields, fn, None)
+        NewImplementation.rewriteMakeStylesWithTheme(
+          fields,
+          fn,
+          None,
+          import_path,
+        )
       // theme function with options
       | PStr([
           {
@@ -93,6 +98,7 @@ let withStylesMapper = (import_path, _argv, _) => {
           fields,
           fn,
           Some(options),
+          import_path,
         )
       // uncurried theme function
       | PStr([

@@ -10,7 +10,7 @@ module App = {
     <br />
     <br />
     <center>
-      <Typography variant=#h4> {React.string("PPX Result")} </Typography>
+      <Typography variant=H4> {React.string("PPX Result")} </Typography>
     </center>
     <br />
     <br />
@@ -21,8 +21,6 @@ module App = {
   </>
 }
 
-@@warning("-3")
-switch ReactDOM.querySelector("#app") {
-| Some(domElement) => ReactDOM.render(<App />, domElement)
-| None => ()
-}
+let el = ReactDOM.querySelector("#app")->Option.getOrThrow
+
+ReactDOM.Client.createRoot(el)->ReactDOM.Client.Root.render(<App />)

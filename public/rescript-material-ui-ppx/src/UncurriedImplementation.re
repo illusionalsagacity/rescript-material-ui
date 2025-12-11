@@ -379,7 +379,7 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields), importPa
               Val.mk(
                 ~attrs=[
                   Attr.mk(
-                    Location.mknoloc("bs.module"),
+                    Location.mknoloc("module"),
                     PStr([
                       Str.eval(
                         Exp.constant(
@@ -445,9 +445,7 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields), importPa
     Mty.mk(
       Pmty_signature([
         Sig.type_(Nonrecursive, [classTypeExpression]),
-        Sig.value(
-          Val.mk(Location.mknoloc("useStyles"), useStylesType)
-        ),
+        Sig.value(Val.mk(Location.mknoloc("useStyles"), useStylesType)),
       ]),
     ),
   );
@@ -511,7 +509,7 @@ let rewriteMakeStylesWithTheme =
               Val.mk(
                 ~attrs=[
                   Attr.mk(
-                    Location.mknoloc("bs.module"),
+                    Location.mknoloc("module"),
                     PStr([
                       Str.eval(
                         Exp.constant(

@@ -2,15 +2,15 @@
 
 import * as Styles from "mui/styles";
 
-var useStyles = Styles.makeStyles({
-      root: {},
-      rounded: {}
-    });
+let useStyles = Styles.makeStyles({
+  root: {},
+  rounded: {}
+});
 
-var classes = useStyles();
+let classes = useStyles();
 
 export {
-  useStyles ,
-  classes ,
+  useStyles,
+  classes,
 }
 /* useStyles Not a pure module */

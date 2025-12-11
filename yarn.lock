@@ -435,6 +435,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@illusionalsagacity/rescript-material-ui-ppx@workspace:*, @illusionalsagacity/rescript-material-ui-ppx@workspace:public/rescript-material-ui-ppx":
+  version: 0.0.0-use.local
+  resolution: "@illusionalsagacity/rescript-material-ui-ppx@workspace:public/rescript-material-ui-ppx"
+  dependencies:
+    rescript: "npm:^12.0.1"
+  peerDependencies:
+    "@material-ui/core": 4.12.3
+    "@rescript/react": ~0.10.3 || ~0.11.0 || ~0.12.0 || ~0.13.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    rescript: ^9.1.2 || ^10.0.0 || ^11.0.0
+    rescript-material-ui: ^3.0.0
+  languageName: unknown
+  linkType: soft
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -888,6 +903,62 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rescript-mui/lab@npm:^5.1.3":
+  version: 5.1.3
+  resolution: "@rescript-mui/lab@npm:5.1.3"
+  peerDependencies:
+    "@mui/lab": ^5.0.0-alpha.134
+    "@mui/material": ^5.14.1
+    "@rescript-mui/material": ^5.0.0
+    "@rescript/react": ^0.12.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+    rescript: ^11.0.0
+  checksum: 10c0/abb7eaa38638cfe46842ff0afae9057e2347bf8ab7507a91e5bb7605f0a26e06fdab229688e57adc61681b43b631b99effddacde1a8f3b50fab7d5a68d76e50e
+  languageName: node
+  linkType: hard
+
+"@rescript-mui/material@npm:^5.1.3":
+  version: 5.1.3
+  resolution: "@rescript-mui/material@npm:5.1.3"
+  peerDependencies:
+    "@mui/material": ^5.14.1
+    "@rescript/react": ^0.12.0-alpha.2
+    react: ^18.0.0
+    react-dom: ^18.0.0
+    rescript: ^11.0.0
+  checksum: 10c0/3edca4b46d58f57308a3d7985827f93dc1cfb1e492721807ffa459a45891a042994185216e2e7dfffd742c148442ae0e0295f33e3fdaa5c37a942887f72f156d
+  languageName: node
+  linkType: hard
+
+"@rescript/darwin-arm64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/darwin-arm64@npm:12.0.1"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rescript/darwin-x64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/darwin-x64@npm:12.0.1"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rescript/linux-arm64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/linux-arm64@npm:12.0.1"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rescript/linux-x64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/linux-x64@npm:12.0.1"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@rescript/react@npm:~0.11.0":
   version: 0.11.0
   resolution: "@rescript/react@npm:0.11.0"
@@ -895,6 +966,30 @@ __metadata:
     react: ">=18.0.0"
     react-dom: ">=18.0.0"
   checksum: 10c0/e4f7a276d0d6b5b44f68724f9ef4231c604521db97ab77176352d94c687fe807d92f18697e369ac2544b07a79d741efa8d5f4381eae84add839c160d27e37ad5
+  languageName: node
+  linkType: hard
+
+"@rescript/react@npm:~0.14.0":
+  version: 0.14.0
+  resolution: "@rescript/react@npm:0.14.0"
+  peerDependencies:
+    react: ">=19.0.0"
+    react-dom: ">=19.0.0"
+  checksum: 10c0/9463eb027df1d28aab60879d3779f0832270580b381fc7b980387ffe080b821548242fef419cfe0a625d9d9866c4f7d676ed77f500374c22b2affd83ebd8bbaa
+  languageName: node
+  linkType: hard
+
+"@rescript/runtime@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/runtime@npm:12.0.1"
+  checksum: 10c0/93b180a684a0f97dd7e2ffe2f1818b30b9f8ccf1a01f0e899396edc586da90743f38d1a56ab28e00c4adf4a16ebdb8db50705576856516bb34dbb0de9abdd05f
+  languageName: node
+  linkType: hard
+
+"@rescript/win32-x64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/win32-x64@npm:12.0.1"
+  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -2336,7 +2431,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:17.0.2, react-dom@npm:^17.0.2":
+"react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -2358,6 +2453,17 @@ __metadata:
   peerDependencies:
     react: ^18.3.1
   checksum: 10c0/a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
+  languageName: node
+  linkType: hard
+
+"react-dom@npm:^19.0.0":
+  version: 19.2.1
+  resolution: "react-dom@npm:19.2.1"
+  dependencies:
+    scheduler: "npm:^0.27.0"
+  peerDependencies:
+    react: ^19.2.1
+  checksum: 10c0/e56b6b3d72314df580ca800b70a69a21c6372703c8f45d9b5451ca6519faefb2496d76ffa9c5adb94136d2bbf2fd303d0dfc208a2cd77ede3132877471af9470
   languageName: node
   linkType: hard
 
@@ -2426,7 +2532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:17.0.2, react@npm:^17.0.2":
+"react@npm:17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -2442,6 +2548,13 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
+  languageName: node
+  linkType: hard
+
+"react@npm:^19.0.0":
+  version: 19.2.1
+  resolution: "react@npm:19.2.1"
+  checksum: 10c0/2b5eaf407abb3db84090434c20d6c5a8e447ab7abcd8fe9eaf1ddc299babcf31284ee9db7ea5671d21c85ac5298bd632fa1a7da1ed78d5b368a537f5e1cd5d62
   languageName: node
   linkType: hard
 
@@ -2475,7 +2588,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"rescript-material-ui-lab@workspace:*, rescript-material-ui-lab@workspace:public/rescript-material-ui-lab":
+"rescript-material-ui-lab@workspace:public/rescript-material-ui-lab":
   version: 0.0.0-use.local
   resolution: "rescript-material-ui-lab@workspace:public/rescript-material-ui-lab"
   dependencies:
@@ -2496,19 +2609,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rescript-material-ui-ppx-tests@workspace:ppx-test"
   dependencies:
+    "@illusionalsagacity/rescript-material-ui-ppx": "workspace:*"
     "@mui/material": "npm:^5.0.0"
     "@mui/styles": "npm:^6.2.0"
-    "@rescript/react": "npm:~0.11.0"
-    react: "npm:^17.0.2"
-    react-dom: "npm:^17.0.2"
-    rescript: "npm:^11.1.4"
-    rescript-material-ui: "workspace:*"
-    rescript-material-ui-lab: "workspace:*"
+    "@rescript-mui/lab": "npm:^5.1.3"
+    "@rescript-mui/material": "npm:^5.1.3"
+    "@rescript/react": "npm:~0.14.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    rescript: "npm:^12.0.1"
     vite: "npm:^5"
   languageName: unknown
   linkType: soft
 
-"rescript-material-ui@workspace:*, rescript-material-ui@workspace:public/rescript-material-ui":
+"rescript-material-ui@workspace:public/rescript-material-ui":
   version: 0.0.0-use.local
   resolution: "rescript-material-ui@workspace:public/rescript-material-ui"
   dependencies:
@@ -2526,7 +2640,38 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"rescript@npm:^11.1.4, rescript@npm:~11.1.0":
+"rescript@npm:^12.0.1":
+  version: 12.0.1
+  resolution: "rescript@npm:12.0.1"
+  dependencies:
+    "@rescript/darwin-arm64": "npm:12.0.1"
+    "@rescript/darwin-x64": "npm:12.0.1"
+    "@rescript/linux-arm64": "npm:12.0.1"
+    "@rescript/linux-x64": "npm:12.0.1"
+    "@rescript/runtime": "npm:12.0.1"
+    "@rescript/win32-x64": "npm:12.0.1"
+  dependenciesMeta:
+    "@rescript/darwin-arm64":
+      optional: true
+    "@rescript/darwin-x64":
+      optional: true
+    "@rescript/linux-arm64":
+      optional: true
+    "@rescript/linux-x64":
+      optional: true
+    "@rescript/win32-x64":
+      optional: true
+  bin:
+    bsc: cli/bsc.js
+    bstracing: cli/bstracing.js
+    rescript: cli/rescript.js
+    rescript-legacy: cli/rescript-legacy.js
+    rescript-tools: cli/rescript-tools.js
+  checksum: 10c0/a6decc8a385d2bcc3e10d7504fe37518d044896bcf04a4e6f1925c2f9fabf8f04e0db29b104f0bf680b804c27bb63607753e86353a260ac1f0ee7e6d0cdb1eba
+  languageName: node
+  linkType: hard
+
+"rescript@npm:~11.1.0":
   version: 11.1.4
   resolution: "rescript@npm:11.1.4"
   bin:
@@ -2669,6 +2814,13 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.27.0":
+  version: 0.27.0
+  resolution: "scheduler@npm:0.27.0"
+  checksum: 10c0/4f03048cb05a3c8fddc45813052251eca00688f413a3cee236d984a161da28db28ba71bd11e7a3dd02f7af84ab28d39fb311431d3b3772fed557945beb00c452
   languageName: node
   linkType: hard
 
