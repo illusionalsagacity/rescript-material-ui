@@ -15,14 +15,15 @@
     "start": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
     "@illusionalsagacity/rescript-material-ui-ppx": "workspace:*",
-    "@mui/material": "^5.0.0",
-    "@mui/styles": "^6.2.0",
+    "@mui/material": "^6.0.0",
+    "@mui/styles": "^6.0.0",
     "@rescript-mui/lab": "^5.1.3",
     "@rescript-mui/material": "^5.1.3",
     "@rescript/react": "~0.14.0",
-    "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react": "^19.0.0",
     "rescript": "^12.0.1"
   },
   "devDependencies": {

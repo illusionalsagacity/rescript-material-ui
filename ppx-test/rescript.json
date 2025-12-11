@@ -1,6 +1,5 @@
 {
   "name": "dev_tests",
-  "uncurried": true,
   "sources": ["src"],
   "jsx": { "version": 4 },
   "package-specs": {
@@ -9,7 +8,10 @@
   },
   "suffix": ".res.mjs",
   "ppx-flags": [
-    ["@illusionalsagacity/rescript-material-ui-ppx/_build/default/src/Bin.exe", "-importPath @mui/styles"]
+    [
+      "@illusionalsagacity/rescript-material-ui-ppx/_build/default/src/Bin.exe",
+      "-importPath @mui/styles"
+    ]
   ],
   "dependencies": [
     "@rescript/react",
