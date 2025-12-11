@@ -26,7 +26,7 @@ jobs:
           auto-install: true
 
       - name: Use OCaml
-        uses: avsm/setup-ocaml@v2
+        uses: avsm/setup-ocaml@v3
         with:
           ocaml-compiler: 4.12.1
 
@@ -38,6 +38,8 @@ jobs:
 
       - name: Yarn install
         run: yarn install --immutable
+        env:
+          PPX_BUILD_CI: true
 
       - name: Build PPX test project
         working-directory: ppx-test
@@ -54,7 +56,7 @@ jobs:
   publish:
     needs: build
     name: Publish
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
