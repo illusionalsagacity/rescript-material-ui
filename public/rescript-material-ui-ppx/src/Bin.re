@@ -1,10 +1,16 @@
 let () = {
-  let import_path = ref("@mui/styles");
+  let import_path = ref("@mui/styles/makeStyles");
+  let import_name = ref("default");
   let spec_list = [
     (
       "-importPath",
       Arg.Set_string(import_path),
       "Set the import path for the makeStyles function",
+    ),
+    (
+      "-importName",
+      Arg.Set_string(import_name),
+      "Set the import name for the makeStyles function",
     ),
   ];
 
@@ -34,7 +40,7 @@ let () = {
     ~name="withStyles",
     ~args=spec_list,
     Migrate_parsetree.Versions.ocaml_410,
-    Mapper.withStylesMapper(import_path^),
+    Mapper.withStylesMapper(~importPath=import_path^, ~importName=import_name^),
   );
 
   Migrate_parsetree.Driver.run_main(~argv, ());

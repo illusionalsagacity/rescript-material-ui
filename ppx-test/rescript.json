@@ -1,7 +1,8 @@
 {
   "name": "dev_tests",
   "sources": ["src"],
-  "jsx": { "version": 4 },
+  "uncurried": true,
+  "jsx": { "version": 4, "mode": "automatic" },
   "package-specs": {
     "module": "esmodule",
     "in-source": true
@@ -10,10 +11,11 @@
   "ppx-flags": [
     [
       "@illusionalsagacity/rescript-material-ui-ppx/_build/default/src/Bin.exe",
-      "-importPath @mui/styles"
+      "-importPath @mui/styles/makeStyles",
+      "-importName default"
     ]
   ],
-  "dependencies": [
+  "bs-dependencies": [
     "@rescript/react",
     "@rescript-mui/material",
     "@rescript-mui/lab"

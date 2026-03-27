@@ -3,7 +3,7 @@ open Ast_410;
 open Asttypes;
 open Parsetree;
 
-let withStylesMapper = (import_path, _argv, _) => {
+let withStylesMapper = (~importPath, ~importName, _argv, _) => {
   ...Ast_mapper.default_mapper,
   module_expr: (mapper, mexpr) => {
     switch (mexpr) {
@@ -17,7 +17,7 @@ let withStylesMapper = (import_path, _argv, _) => {
             _,
           },
         ]) =>
-        UncurriedImplementation.rewriteMakeStyles(fields, None, import_path)
+        UncurriedImplementation.rewriteMakeStyles(fields, None, importPath, importName)
       // record with options
       | PStr([
           {
@@ -39,7 +39,8 @@ let withStylesMapper = (import_path, _argv, _) => {
         UncurriedImplementation.rewriteMakeStyles(
           fields,
           Some(options),
-          import_path,
+          importPath,
+          importName,
         )
       // theme function
       | PStr([
@@ -65,7 +66,8 @@ let withStylesMapper = (import_path, _argv, _) => {
           fields,
           fn,
           None,
-          import_path,
+          importPath,
+          importName,
         )
       // theme function with options
       | PStr([
@@ -98,7 +100,8 @@ let withStylesMapper = (import_path, _argv, _) => {
           fields,
           fn,
           Some(options),
-          import_path,
+          importPath,
+          importName,
         )
       // uncurried theme function
       | PStr([
@@ -153,7 +156,8 @@ let withStylesMapper = (import_path, _argv, _) => {
           fields,
           fn,
           None,
-          import_path,
+          importPath,
+          importName,
         )
       // uncurried function with options
       | PStr([
@@ -202,7 +206,8 @@ let withStylesMapper = (import_path, _argv, _) => {
           fields,
           fn,
           Some(options),
-          import_path,
+          importPath,
+          importName,
         )
       | _ => Utils.raiseError(~loc, None)
       }

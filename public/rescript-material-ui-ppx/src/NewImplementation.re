@@ -228,7 +228,7 @@ let getTypeExpressions = (fields: rawFields) => {
 };
 
 let rewriteMakeStyles =
-    (fields: rawFields, options: option(rawFields), importPath) => {
+    (fields: rawFields, options: option(rawFields), importPath, importName) => {
   let (classTypeExpression, styleTypeExpression, useStylesTypeExpression) =
     getTypeExpressions(fields);
 
@@ -272,7 +272,7 @@ let rewriteMakeStyles =
                     ]),
                   ),
                 ],
-                ~prim=["makeStyles"],
+                ~prim=[importName],
                 Location.mknoloc("makeStyles"),
                 Typ.arrow(
                   Nolabel,
@@ -372,6 +372,7 @@ let rewriteMakeStylesWithTheme =
       funcExpr: Parsetree.expression,
       options: option(rawFields),
       importPath,
+      importName,
     ) => {
   let (classTypeExpression, styleTypeExpression, useStylesTypeExpression) =
     getTypeExpressions(fields);
@@ -441,7 +442,7 @@ let rewriteMakeStylesWithTheme =
                     ]),
                   ),
                 ],
-                ~prim=["makeStyles"],
+                ~prim=[importName],
                 Location.mknoloc("makeStyles"),
                 Typ.arrow(
                   Nolabel,
