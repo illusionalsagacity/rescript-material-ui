@@ -51,6 +51,13 @@ jobs:
         with:
           ocaml-compiler: 4.12.1
 
+      # ocamlfind 1.9.5's install-doc step fails with a permission error
+      # under the Cygwin environment; 1.9.1 from opam-repository-mingw is
+      # patched for Windows and installs cleanly
+      - name: Pin ocamlfind (Windows)
+        if: runner.os == 'Windows'
+        run: opam pin add -n ocamlfind 1.9.1
+
       - run: opam install . --deps-only
         working-directory: public/rescript-material-ui-ppx
 
