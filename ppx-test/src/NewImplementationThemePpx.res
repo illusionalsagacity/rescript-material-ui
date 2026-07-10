@@ -1,28 +1,28 @@
 module Styles1 = %makeStyles((
   _theme => {
-    root: ReactDOM.Style.make(),
-    rounded: ReactDOM.Style.make(),
+    root: {},
+    rounded: {},
   },
   {name: "test"},
 ))
 module Styles2 = %makeStyles(
   theme => {
-    root: ReactDOM.Style.make(~width="100%", ~maxWidth="970px", ~margin="0 auto", ()),
-    rounded: ReactDOM.Style.make(
-      ~backgroundColor=theme.palette.background.paper,
-      ~color=theme.palette.text.primary,
-      ~padding="15px",
-      (),
-    ),
-  })
+    root: {width: "100%", maxWidth: "970px", margin: "0 auto"},
+    rounded: {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      padding: "15px",
+    },
+  }
+)
 module Styles3 = %makeStyles({
-  root: ReactDOM.Style.make(~width="100%", ~maxWidth="970px", ~margin="0 auto", ()),
-  rounded: ReactDOM.Style.make(~backgroundColor="#eee", ~color="#333", ~padding="15px", ()),
+  root: {width: "100%", maxWidth: "970px", margin: "0 auto"},
+  rounded: {backgroundColor: "#eee", color: "#333", padding: "15px"},
 })
 module Styles4 = %makeStyles((
   {
-    root: ReactDOM.Style.make(~width="100%", ~maxWidth="970px", ~margin="0 auto", ()),
-    rounded: ReactDOM.Style.make(~backgroundColor="#eee", ~color="#333", ~padding="15px", ()),
+    root: {width: "100%", maxWidth: "970px", margin: "0 auto"},
+    rounded: {backgroundColor: "#eee", color: "#333", padding: "15px"},
   },
   {name: "test"},
 ))

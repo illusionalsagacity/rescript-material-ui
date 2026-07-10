@@ -2,6 +2,11 @@
 
 const fs = require('node:fs');
 const process = require('node:process');
+const path = require('node:path');
+
+if (process.env.PPX_BUILD_CI === 'true') {
+  process.exit(0);
+}
 
 let arch = process.arch;
 let platform = process.platform;
@@ -14,14 +19,13 @@ if (platform === 'win32') {
   platform = 'win';
 }
 
-copyBinary(
-  'bin/rescript_material_ui_ppx-' + platform + '-' + arch + '.exe',
-  'ppx',
+const binaryPath = path.join(
+  __dirname,
+  'bin',
+  `rescript_material_ui_ppx-${platform}-${arch}.exe`,
 );
-copyBinary(
-  'bin/rescript_material_ui_ppx-' + platform + '-' + arch + '.exe',
-  'ppx6',
-);
+
+copyBinary(binaryPath, 'ppx');
 
 function copyBinary(filename, destFilename) {
   let supported = fs.existsSync(filename);

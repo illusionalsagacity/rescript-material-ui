@@ -9,7 +9,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@illusionalsagacity/rescript-material-ui-ppx@workspace:."
   dependencies:
-    rescript: "npm:^11.1.4"
+    rescript: "npm:^12.0.1"
   peerDependencies:
     "@material-ui/core": 4.12.3
     "@rescript/react": ~0.10.3 || ~0.11.0 || ~0.12.0 || ~0.13.0
@@ -20,13 +20,75 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"rescript@npm:^11.1.4":
-  version: 11.1.4
-  resolution: "rescript@npm:11.1.4"
+"@rescript/darwin-arm64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/darwin-arm64@npm:12.0.1"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rescript/darwin-x64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/darwin-x64@npm:12.0.1"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rescript/linux-arm64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/linux-arm64@npm:12.0.1"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rescript/linux-x64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/linux-x64@npm:12.0.1"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rescript/runtime@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/runtime@npm:12.0.1"
+  checksum: 10c0/93b180a684a0f97dd7e2ffe2f1818b30b9f8ccf1a01f0e899396edc586da90743f38d1a56ab28e00c4adf4a16ebdb8db50705576856516bb34dbb0de9abdd05f
+  languageName: node
+  linkType: hard
+
+"@rescript/win32-x64@npm:12.0.1":
+  version: 12.0.1
+  resolution: "@rescript/win32-x64@npm:12.0.1"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"rescript@npm:^12.0.1":
+  version: 12.0.1
+  resolution: "rescript@npm:12.0.1"
+  dependencies:
+    "@rescript/darwin-arm64": "npm:12.0.1"
+    "@rescript/darwin-x64": "npm:12.0.1"
+    "@rescript/linux-arm64": "npm:12.0.1"
+    "@rescript/linux-x64": "npm:12.0.1"
+    "@rescript/runtime": "npm:12.0.1"
+    "@rescript/win32-x64": "npm:12.0.1"
+  dependenciesMeta:
+    "@rescript/darwin-arm64":
+      optional: true
+    "@rescript/darwin-x64":
+      optional: true
+    "@rescript/linux-arm64":
+      optional: true
+    "@rescript/linux-x64":
+      optional: true
+    "@rescript/win32-x64":
+      optional: true
   bin:
-    bsc: bsc
-    bstracing: lib/bstracing
-    rescript: rescript
-  checksum: 10c0/7f12186a84209f586457a60e65755fcdfbcbb503ac805c60ab5132ce4c927bc264c3b851419ed5498ba7dc4066723377bb7453f893f482a0ccd424986d02beba
+    bsc: cli/bsc.js
+    bstracing: cli/bstracing.js
+    rescript: cli/rescript.js
+    rescript-legacy: cli/rescript-legacy.js
+    rescript-tools: cli/rescript-tools.js
+  checksum: 10c0/a6decc8a385d2bcc3e10d7504fe37518d044896bcf04a4e6f1925c2f9fabf8f04e0db29b104f0bf680b804c27bb63607753e86353a260ac1f0ee7e6d0cdb1eba
   languageName: node
   linkType: hard

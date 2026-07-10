@@ -227,7 +227,8 @@ let getTypeExpressions = (fields: rawFields) => {
   );
 };
 
-let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
+let rewriteMakeStyles =
+    (fields: rawFields, options: option(rawFields), importPath, importName) => {
   let (classTypeExpression, styleTypeExpression, useStylesTypeExpression) =
     getTypeExpressions(fields);
 
@@ -265,17 +266,13 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
               Val.mk(
                 ~attrs=[
                   Attr.mk(
-                    Location.mknoloc("bs.module"),
+                    Location.mknoloc("module"),
                     PStr([
-                      Str.eval(
-                        Exp.constant(
-                          Const.string("@material-ui/core/styles"),
-                        ),
-                      ),
+                      Str.eval(Exp.constant(Const.string(importPath))),
                     ]),
                   ),
                 ],
-                ~prim=["makeStyles"],
+                ~prim=[importName],
                 Location.mknoloc("makeStyles"),
                 Typ.arrow(
                   Nolabel,
@@ -374,10 +371,12 @@ let rewriteMakeStylesWithTheme =
       fields: rawFields,
       funcExpr: Parsetree.expression,
       options: option(rawFields),
+      importPath,
+      importName,
     ) => {
   let (classTypeExpression, styleTypeExpression, useStylesTypeExpression) =
     getTypeExpressions(fields);
-  
+
   // this is for curried
   let themeFuncTypeExpression =
     Type.mk(
@@ -437,17 +436,13 @@ let rewriteMakeStylesWithTheme =
               Val.mk(
                 ~attrs=[
                   Attr.mk(
-                    Location.mknoloc("bs.module"),
+                    Location.mknoloc("module"),
                     PStr([
-                      Str.eval(
-                        Exp.constant(
-                          Const.string("@material-ui/core/styles"),
-                        ),
-                      ),
+                      Str.eval(Exp.constant(Const.string(importPath))),
                     ]),
                   ),
                 ],
-                ~prim=["makeStyles"],
+                ~prim=[importName],
                 Location.mknoloc("makeStyles"),
                 Typ.arrow(
                   Nolabel,

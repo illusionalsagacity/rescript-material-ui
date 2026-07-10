@@ -327,7 +327,7 @@ let getTypeExpressions = (fields: rawFields) => {
   );
 };
 
-let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
+let rewriteMakeStyles = (fields: rawFields, options: option(rawFields), importPath, importName) => {
   let (classTypeExpression, styleTypeExpression) =
     getTypeExpressions(fields);
 
@@ -379,17 +379,17 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
               Val.mk(
                 ~attrs=[
                   Attr.mk(
-                    Location.mknoloc("bs.module"),
+                    Location.mknoloc("module"),
                     PStr([
                       Str.eval(
                         Exp.constant(
-                          Const.string("@material-ui/core/styles"),
+                          Const.string(importPath),
                         ),
                       ),
                     ]),
                   ),
                 ],
-                ~prim=["makeStyles"],
+                ~prim=[importName],
                 Location.mknoloc("makeStyles"),
                 _makeStylesTypeSignature,
               ),
@@ -445,9 +445,7 @@ let rewriteMakeStyles = (fields: rawFields, options: option(rawFields)) => {
     Mty.mk(
       Pmty_signature([
         Sig.type_(Nonrecursive, [classTypeExpression]),
-        Sig.value(
-          Val.mk(Location.mknoloc("useStyles"), useStylesType)
-        ),
+        Sig.value(Val.mk(Location.mknoloc("useStyles"), useStylesType)),
       ]),
     ),
   );
@@ -458,6 +456,8 @@ let rewriteMakeStylesWithTheme =
       fields: rawFields,
       funcExpr: Parsetree.expression,
       options: option(rawFields),
+      importPath,
+      importName,
     ) => {
   let (classTypeExpression, styleTypeExpression) =
     getTypeExpressions(fields);
@@ -510,17 +510,17 @@ let rewriteMakeStylesWithTheme =
               Val.mk(
                 ~attrs=[
                   Attr.mk(
-                    Location.mknoloc("bs.module"),
+                    Location.mknoloc("module"),
                     PStr([
                       Str.eval(
                         Exp.constant(
-                          Const.string("@material-ui/core/styles"),
+                          Const.string(importPath),
                         ),
                       ),
                     ]),
                   ),
                 ],
-                ~prim=["makeStyles"],
+                ~prim=[importName],
                 Location.mknoloc("makeStyles"),
                 makeStylesTypeSignature,
               ),

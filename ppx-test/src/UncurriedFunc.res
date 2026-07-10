@@ -19,8 +19,8 @@ type classes = {
 external makeStyles: styles => unit => classes = "makeStyles"
 
 let useStyles = makeStyles({
-  root: ReactDOM.Style.make(),
-  rounded: ReactDOM.Style.make(),
+  root: {},
+  rounded: {},
 })
 
 let classes = useStyles()

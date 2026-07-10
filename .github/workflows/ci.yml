@@ -7,15 +7,26 @@ on:
   pull_request:
     branches:
       - master
+  workflow_dispatch: {}
 
 jobs:
   build:
-    name: Build ${{ matrix.os }} ${{ matrix.arch }}
+    name: Build ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macOS-14]
-        arch: [x64, arm64]
+        include:
+          - os: ubuntu-24.04
+            target: linux-x64
+          - os: ubuntu-24.04-arm
+            target: linux-arm64
+          - os: macos-15-intel
+            target: darwin-x64
+          - os: macos-15
+            target: darwin-arm64
+          - os: windows-latest
+            target: win-x64
 
     steps:
       - name: Checkout repository
@@ -26,9 +37,26 @@ jobs:
           auto-install: true
 
       - name: Use OCaml
-        uses: avsm/setup-ocaml@v2
+        if: runner.os != 'Windows'
+        uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: 4.12.1
+
+      # ocaml-migrate-parsetree 1.8.0 requires OCaml < 4.13, but opam's native
+      # Windows support only has compilers >= 4.14. setup-ocaml v2 still uses
+      # opam-repository-mingw, which provides 4.12.x mingw compilers.
+      - name: Use OCaml (Windows)
+        if: runner.os == 'Windows'
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: 4.12.1
+
+      # ocamlfind 1.9.5's install-doc step fails with a permission error
+      # under the Cygwin environment; 1.9.1 from opam-repository-mingw is
+      # patched for Windows and installs cleanly
+      - name: Pin ocamlfind (Windows)
+        if: runner.os == 'Windows'
+        run: opam pin add -n ocamlfind 1.9.1
 
       - run: opam install . --deps-only
         working-directory: public/rescript-material-ui-ppx
@@ -38,51 +66,62 @@ jobs:
 
       - name: Yarn install
         run: yarn install --immutable
+        env:
+          PPX_BUILD_CI: true
 
       - name: Build PPX test project
         working-directory: ppx-test
         run: yarn build
 
-      - name: Upload artifacts ${{ matrix.os }}-${{ matrix.arch }}
+      - name: Upload artifacts ${{ matrix.target }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{ matrix.arch }}
+          name: ${{ matrix.target }}
           path: public/rescript-material-ui-ppx/_build/default/src/Bin.exe
+          if-no-files-found: error
         env:
           CI: true
 
   publish:
-    if: github.event_name != 'pull_request'
     needs: build
     name: Publish
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # - run: git checkout HEAD^
 
       - name: Download linux artifacts (x64)
         uses: actions/download-artifact@v4
         with:
-          name: ubuntu-22.04-x64
-          path: ppx/binaries/linux-x64
+          name: linux-x64
+          path: public/rescript-material-ui-ppx/binaries/linux-x64
 
       - name: Download linux artifacts (arm64)
         uses: actions/download-artifact@v4
         with:
-          name: ubuntu-22.04-arm64
-          path: ppx/binaries/linux-arm64
+          name: linux-arm64
+          path: public/rescript-material-ui-ppx/binaries/linux-arm64
 
       - name: Download macOS artifacts (x64)
         uses: actions/download-artifact@v4
         with:
-          name: macOS-14-x64
-          path: ppx/binaries/darwin-x64
+          name: darwin-x64
+          path: public/rescript-material-ui-ppx/binaries/darwin-x64
 
       - name: Download macOS artifacts (arm64)
         uses: actions/download-artifact@v4
         with:
-          name: macOS-14-arm64
-          path: ppx/binaries/darwin-arm64
+          name: darwin-arm64
+          path: public/rescript-material-ui-ppx/binaries/darwin-arm64
+
+      - name: Download windows artifacts (x64)
+        uses: actions/download-artifact@v4
+        with:
+          name: win-x64
+          path: public/rescript-material-ui-ppx/binaries/win-x64
 
       - name: Move artifacts
         working-directory: public/rescript-material-ui-ppx
@@ -92,6 +131,7 @@ jobs:
           mv binaries/darwin-arm64/Bin.exe bin/rescript_material_ui_ppx-darwin-arm64.exe
           mv binaries/linux-x64/Bin.exe bin/rescript_material_ui_ppx-linux-x64.exe
           mv binaries/linux-arm64/Bin.exe bin/rescript_material_ui_ppx-linux-arm64.exe
+          mv binaries/win-x64/Bin.exe bin/rescript_material_ui_ppx-win-x64.exe
           rm -rf binaries
 
       - uses: moonrepo/setup-toolchain@v0
@@ -100,10 +140,22 @@ jobs:
 
       - name: yarn pack
         working-directory: public/rescript-material-ui-ppx
-        run: yarn pack --dry-run
+        run: |
+          yarn pack --dry-run
+
+      - name: Set Auth Token
+        run: |
+          yarn config set npmAuthToken ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Publish
+        if: success() && github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          yarn npm publish --access public
         working-directory: public/rescript-material-ui-ppx
-        run: yarn npm publish --access public
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Publish Prerelease
+        if: success() && (github.event_name == 'pull_request' || !startsWith(github.ref, 'refs/tags/'))
+        run: |
+          yarn version -i prerelease
+          yarn npm publish --access public --tag next
+        working-directory: public/rescript-material-ui-ppx

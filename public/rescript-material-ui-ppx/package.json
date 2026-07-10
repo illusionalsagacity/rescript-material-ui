@@ -1,7 +1,10 @@
 {
   "name": "@illusionalsagacity/rescript-material-ui-ppx",
-  "version": "3.0.2",
-  "repository": "https://github.com/illusionalsagacity/rescript-material-ui",
+  "version": "4.0.0-alpha.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/illusionalsagacity/rescript-material-ui.git"
+  },
   "bugs": "https://github.com/illusionalsagacity/rescript-material-ui/issues",
   "author": "Jonathan Siebern <jsiebern88@gmail.com>",
   "contributors": [
@@ -21,15 +24,18 @@
   ],
   "description": "This is a ppx for using the withStyles component in ReScript Material-UI",
   "devDependencies": {
-    "rescript": "^11.1.4"
+    "rescript": "^12.0.1"
   },
   "peerDependencies": {
-    "@material-ui/core": "4.12.3",
-    "@rescript/react": "~0.10.3 || ~0.11.0 || ~0.12.0 || ~0.13.0",
+    "@mui/material": "^5.0.0 || ^6.0.0",
+    "@mui/styles": "^6.0.0",
+    "@rescript/react": "~0.10.3 || ~0.11.0 || ~0.12.0 || ~0.13.0 || ~0.14.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "rescript": "^9.1.2 || ^10.0.0 || ^11.0.0",
-    "rescript-material-ui": "^3.0.0"
+    "rescript": "^11.0.0 || ^12.0.0"
+  },
+  "optionalDependencies": {
+    "@mui/styles": "^6.0.0"
   },
   "publishConfig": {
     "access": "public"
@@ -40,10 +46,12 @@
   ],
   "os": [
     "darwin",
-    "linux"
+    "linux",
+    "win32"
   ],
   "cpu": [
     "x64",
     "arm64"
-  ]
+  ],
+  "stableVersion": "3.0.2"
 }

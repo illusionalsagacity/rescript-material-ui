@@ -3,3 +3,24 @@
 (generate_opam_files true)
 
 (name "rescript_material_ui_ppx")
+
+(license MIT)
+
+(source
+ (github illusionalsagacity/rescript-material-ui))
+
+(package
+ (name rescript_material_ui_ppx)
+ (synopsis "A PPX for Material-UI in ReScript")
+ (depends
+  ; dune >= 3.23 passes -loc-filename to ppx drivers, which the
+  ; ocaml-migrate-parsetree 1.8.0 driver does not understand
+  (dune
+   (< 3.23))
+  (ocaml-migrate-parsetree
+   (= 1.8.0))
+  (ppx_tools_versioned
+   (= 5.4.0))
+  (reason
+   (= 3.8.2))
+  yojson))

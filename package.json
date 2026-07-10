@@ -4,6 +4,7 @@
     "examples",
     "public/rescript-material-ui",
     "public/rescript-material-ui-lab",
+    "public/rescript-material-ui-ppx",
     "ppx-test"
   ],
   "packageManager": "yarn@4.5.0"

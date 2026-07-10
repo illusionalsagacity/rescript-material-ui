@@ -3,7 +3,7 @@ open Ast_410;
 open Asttypes;
 open Parsetree;
 
-let withStylesMapper = (_argv, _) => {
+let withStylesMapper = (~importPath, ~importName, _argv, _) => {
   ...Ast_mapper.default_mapper,
   module_expr: (mapper, mexpr) => {
     switch (mexpr) {
@@ -17,7 +17,7 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        UncurriedImplementation.rewriteMakeStyles(fields, None)
+        UncurriedImplementation.rewriteMakeStyles(fields, None, importPath, importName)
       // record with options
       | PStr([
           {
@@ -36,7 +36,12 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        UncurriedImplementation.rewriteMakeStyles(fields, Some(options))
+        UncurriedImplementation.rewriteMakeStyles(
+          fields,
+          Some(options),
+          importPath,
+          importName,
+        )
       // theme function
       | PStr([
           {
@@ -57,7 +62,13 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        NewImplementation.rewriteMakeStylesWithTheme(fields, fn, None)
+        NewImplementation.rewriteMakeStylesWithTheme(
+          fields,
+          fn,
+          None,
+          importPath,
+          importName,
+        )
       // theme function with options
       | PStr([
           {
@@ -89,6 +100,8 @@ let withStylesMapper = (_argv, _) => {
           fields,
           fn,
           Some(options),
+          importPath,
+          importName,
         )
       // uncurried theme function
       | PStr([
@@ -139,7 +152,13 @@ let withStylesMapper = (_argv, _) => {
             _,
           },
         ]) =>
-        UncurriedImplementation.rewriteMakeStylesWithTheme(fields, fn, None)
+        UncurriedImplementation.rewriteMakeStylesWithTheme(
+          fields,
+          fn,
+          None,
+          importPath,
+          importName,
+        )
       // uncurried function with options
       | PStr([
           {
@@ -187,6 +206,8 @@ let withStylesMapper = (_argv, _) => {
           fields,
           fn,
           Some(options),
+          importPath,
+          importName,
         )
       | _ => Utils.raiseError(~loc, None)
       }

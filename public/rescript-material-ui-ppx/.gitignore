@@ -1,4 +1,5 @@
 _esy
+_opam
 _build
 _release
 *.byte
